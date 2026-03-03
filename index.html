@@ -396,6 +396,69 @@
     opacity: 0.5;
   }
 
+  /* ── NEWSLETTER MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  .modal-content {
+    background: var(--card-bg);
+    border: 1px solid rgba(219,207,189,0.15);
+    border-radius: 12px;
+    padding: 36px 28px;
+    max-width: 400px;
+    width: 100%;
+    position: relative;
+    animation: fadeUp 0.3s ease;
+  }
+
+  .modal-content .email-form {
+    flex-direction: column;
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+  }
+
+  .modal-content .email-input {
+    border: 1px solid rgba(219,207,189,0.15);
+    border-radius: 6px;
+    margin-bottom: 0;
+  }
+
+  .modal-content .email-input:focus {
+    border-color: rgba(219,207,189,0.4);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: var(--gray);
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    line-height: 1;
+  }
+
+  .modal-close:hover {
+    color: var(--white);
+  }
+
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(12px); }
@@ -465,11 +528,14 @@
   <div class="cta-section animate delay-3">
     <div class="cta-label">2026 Off-Season Program</div>
     <div class="cta-sublabel">Get early access and program details — launching March 22nd.</div>
-    <div class="email-form">
-      <input type="email" class="email-input" placeholder="Enter your email">
-      <button class="email-submit" onclick="handleEmailSubmit()">Get Access</button>
-    </div>
-    <div id="email-success" style="display:none; text-align:center; margin-top:12px; font-size:12px; color:var(--tan); letter-spacing:1px;">You're in. We'll be in touch.</div>
+    <form class="email-form" action="https://formsubmit.co/kris@posted-social.com" method="POST">
+      <input type="hidden" name="_subject" value="New Off-Season Program Signup">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="">
+      <input type="hidden" name="_template" value="table">
+      <input type="email" name="email" class="email-input" placeholder="Enter your email" required>
+      <button type="submit" class="email-submit">Get Access</button>
+    </form>
   </div>
 
   <div class="divider animate delay-4"></div>
@@ -545,10 +611,28 @@
   <!-- NEWSLETTER SECONDARY CTA -->
   <div class="animate delay-8">
     <div class="divider"></div>
-    <a href="#newsletter" class="link-btn" style="margin-bottom:0;">
+    <a href="#" onclick="openNewsletterModal(); return false;" class="link-btn" style="margin-bottom:0;">
       <span>📩 Join the Weekly Newsletter</span>
       <span class="link-btn-arrow">→</span>
     </a>
+  </div>
+
+  <!-- NEWSLETTER MODAL -->
+  <div id="newsletter-modal" class="modal-overlay" onclick="closeNewsletterModal(event)">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeNewsletterModal()" aria-label="Close">&times;</button>
+      <div class="cta-label" style="margin-bottom: 8px;">Weekly Newsletter</div>
+      <div class="cta-sublabel" style="margin-bottom: 20px;">Training tips, mindset, and hockey performance — delivered weekly.</div>
+      <form class="email-form" action="https://formsubmit.co/kris@posted-social.com" method="POST">
+        <input type="hidden" name="_subject" value="New Newsletter Subscriber">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="name" class="email-input" placeholder="Your name" style="border-bottom: 1px solid rgba(219,207,189,0.1);" required>
+        <input type="email" name="email" class="email-input" placeholder="Enter your email" required>
+        <button type="submit" class="email-submit" style="width:100%; border-radius: 6px; margin-top: 4px;">Subscribe</button>
+      </form>
+    </div>
   </div>
 
   <!-- FOOTER -->
@@ -560,27 +644,22 @@
 </div>
 
 <script>
-function handleEmailSubmit() {
-  const input = document.querySelector('.email-input');
-  const email = input.value.trim();
-  if (email && email.includes('@')) {
-    // In GHL, this would submit to the form/workflow
-    document.querySelector('.email-form').style.display = 'none';
-    document.querySelector('.cta-sublabel').style.display = 'none';
-    document.getElementById('email-success').style.display = 'block';
-  } else {
-    input.style.borderBottom = '2px solid #ff4444';
-    input.placeholder = 'Enter a valid email';
-    setTimeout(() => {
-      input.style.borderBottom = 'none';
-      input.placeholder = 'Enter your email';
-    }, 2000);
+// Newsletter modal
+function openNewsletterModal() {
+  document.getElementById('newsletter-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeNewsletterModal(e) {
+  if (!e || e.target === e.currentTarget) {
+    document.getElementById('newsletter-modal').classList.remove('active');
+    document.body.style.overflow = '';
   }
 }
 
-// Allow enter key to submit
-document.querySelector('.email-input')?.addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') handleEmailSubmit();
+// Close modal on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeNewsletterModal();
 });
 </script>
 
