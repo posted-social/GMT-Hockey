@@ -577,14 +577,11 @@
   <div class="cta-section animate delay-3">
     <div class="cta-label">2026 Off-Season Program</div>
     <div class="cta-sublabel">Get early access and program details — launching March 22nd.</div>
-    <form class="email-form" action="https://formsubmit.co/kris@posted-social.com" method="POST">
-      <input type="hidden" name="_subject" value="New Off-Season Program Signup">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="https://tap.gmbm.com">
-      <input type="hidden" name="_template" value="table">
+    <form class="email-form" id="offseason-form" onsubmit="submitOffseason(event)">
       <input type="email" name="email" class="email-input" placeholder="Enter your email" required>
       <button type="submit" class="email-submit">Get Access</button>
     </form>
+    <div id="offseason-success" style="display:none; text-align:center; margin-top:12px; font-size:12px; color:var(--tan); letter-spacing:1px;">You're in. We'll be in touch.</div>
   </div>
 
   <div class="divider animate delay-4"></div>
@@ -664,15 +661,12 @@
       <button class="modal-close" onclick="closeNewsletterModal()" aria-label="Close">&times;</button>
       <div class="cta-label" style="margin-bottom: 8px;">Weekly Newsletter</div>
       <div class="cta-sublabel" style="margin-bottom: 20px;">Training tips, mindset, and hockey performance — delivered weekly.</div>
-      <form class="email-form" action="https://formsubmit.co/kris@posted-social.com" method="POST">
-        <input type="hidden" name="_subject" value="New Newsletter Subscriber">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://tap.gmbm.com">
-        <input type="hidden" name="_template" value="table">
+      <form class="email-form" id="newsletter-form" onsubmit="submitNewsletter(event)">
         <input type="text" name="name" class="email-input" placeholder="Your name" style="border-bottom: 1px solid rgba(219,207,189,0.1);" required>
         <input type="email" name="email" class="email-input" placeholder="Enter your email" required>
         <button type="submit" class="email-submit" style="width:100%; border-radius: 6px; margin-top: 4px;">Subscribe</button>
       </form>
+      <div id="newsletter-success" style="display:none; text-align:center; margin-top:12px; font-size:12px; color:var(--tan); letter-spacing:1px;">You're subscribed. Welcome to the team.</div>
     </div>
   </div>
 
@@ -689,6 +683,50 @@
 </div>
 
 <script>
+const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/tI74ruwIYBkA3vjtdWDO/webhook-trigger/F7kfMM9FW89KL9DKU6si';
+
+async function submitOffseason(e) {
+  e.preventDefault();
+  const form = document.getElementById('offseason-form');
+  const email = form.querySelector('input[name="email"]').value;
+  const btn = form.querySelector('button');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  try {
+    await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, source: 'off-season-program' })
+    });
+  } catch (err) {}
+
+  form.style.display = 'none';
+  document.querySelector('.cta-sublabel').style.display = 'none';
+  document.getElementById('offseason-success').style.display = 'block';
+}
+
+async function submitNewsletter(e) {
+  e.preventDefault();
+  const form = document.getElementById('newsletter-form');
+  const name = form.querySelector('input[name="name"]').value;
+  const email = form.querySelector('input[name="email"]').value;
+  const btn = form.querySelector('button');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  try {
+    await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, source: 'weekly-newsletter' })
+    });
+  } catch (err) {}
+
+  form.style.display = 'none';
+  document.getElementById('newsletter-success').style.display = 'block';
+}
+
 // Newsletter modal
 function openNewsletterModal() {
   document.getElementById('newsletter-modal').classList.add('active');
@@ -702,7 +740,6 @@ function closeNewsletterModal(e) {
   }
 }
 
-// Close modal on Escape key
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeNewsletterModal();
 });
