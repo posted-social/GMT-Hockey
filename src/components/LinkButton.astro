@@ -1,0 +1,20 @@
+---
+export interface Props {
+  href: string;
+  label: string;
+  emoji?: string;
+}
+
+const { href, label, emoji } = Astro.props;
+const isExternal = href.startsWith('http');
+---
+
+<a
+  href={href}
+  class="link-btn"
+  {...isExternal ? { target: '_blank' } : {}}
+>
+  {emoji && <span class="link-btn-icon">{emoji}</span>}
+  <span>{label}</span>
+  <span class="link-btn-arrow">→</span>
+</a>
