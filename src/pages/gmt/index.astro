@@ -6,6 +6,10 @@ import EmailCapture from '../../components/EmailCapture.astro';
 import LinkButton from '../../components/LinkButton.astro';
 import CoachCard from '../../components/CoachCard.astro';
 import NewsletterModal from '../../components/NewsletterModal.astro';
+import StatBar from '../../components/StatBar.astro';
+import TestimonialCard from '../../components/TestimonialCard.astro';
+import ProgramCard from '../../components/ProgramCard.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
 import '../../styles/global.css';
 
 const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/tI74ruwIYBkA3vjtdWDO/webhook-trigger/F7kfMM9FW89KL9DKU6si';
@@ -42,6 +46,17 @@ const coaches = [
 
   <div class="divider animate delay-2"></div>
 
+  <!-- STATS -->
+  <div class="animate delay-3">
+    <StatBar stats={[
+      { value: '500+', label: 'Athletes Trained' },
+      { value: '8',    label: 'Years Coaching' },
+      { value: '4',    label: 'Pro Alumni' },
+    ]} />
+  </div>
+
+  <div class="divider animate delay-4"></div>
+
   <!-- PRIMARY CTA: OFF-SEASON EMAIL CAPTURE -->
   <div class="animate delay-3">
     <EmailCapture
@@ -56,6 +71,28 @@ const coaches = [
   </div>
 
   <div class="divider animate delay-4"></div>
+
+  <!-- PROGRAMS -->
+  <div class="animate delay-5">
+    <SectionBlock label="Programs">
+      <ProgramCard
+        title="Elite Off-Season"
+        description="12-week hockey-specific strength, speed, and skating development. Built for serious players looking to dominate next season."
+        badge="Now Enrolling"
+        price="$299"
+        ctaHref="https://gmbm.com"
+        ctaLabel="Get Early Access"
+      />
+      <ProgramCard
+        title="GMBM Online"
+        description="Remote training programs with weekly check-ins, customized to your position and development goals."
+        ctaHref="https://gmbm.com"
+        ctaLabel="Learn More"
+      />
+    </SectionBlock>
+  </div>
+
+  <div class="divider animate delay-6"></div>
 
   <!-- MAIN LINKS -->
   <div class="animate delay-5">
@@ -79,6 +116,24 @@ const coaches = [
         />
       ))}
     </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TESTIMONIALS -->
+  <div class="animate delay-8">
+    <SectionBlock label="Athletes">
+      <TestimonialCard
+        quote="GMT completely changed how I train in the off-season. Went from a healthy scratch to top-6 forward in one summer."
+        name="Ryan M."
+        detail="AAA Midget → Junior A"
+      />
+      <TestimonialCard
+        quote="The detail these coaches put into every session is unreal. Best investment I've made in my hockey career."
+        name="Tyler B."
+        detail="NCAA Division I Commit"
+      />
+    </SectionBlock>
   </div>
 
   <!-- NEWSLETTER SECONDARY CTA -->
