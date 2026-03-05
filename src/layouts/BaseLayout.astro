@@ -1,0 +1,66 @@
+---
+export interface Props {
+  title: string;
+  gaId?: string;
+  accentColor?: string;
+  footerLogoSrc?: string;
+  footerText?: string;
+}
+
+const {
+  title,
+  gaId,
+  accentColor,
+  footerLogoSrc,
+  footerText,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+
+  {gaId && (
+    <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+      <script define:vars={{ gaId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', gaId);
+      </script>
+    </>
+  )}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  {accentColor && (
+    <style define:vars={{ accentColor }}>
+      :root { --accent: var(--accentColor); }
+    </style>
+  )}
+</head>
+<body>
+  <div class="container">
+    <slot />
+
+    <div class="footer animate delay-10">
+      {footerLogoSrc && (
+        <img src={footerLogoSrc} alt="" class="footer-logo">
+      )}
+      {footerText && (
+        <div class="footer-text">{footerText}</div>
+      )}
+      <a href="https://posted-social.com" target="_blank" class="posted-sig" style="text-decoration:none;">
+        <span class="posted-sig-text">We'll Keep You <span class="posted-highlight">Posted</span></span>
+        <img class="posted-sig-logo" src="/images/gmt/posted-sig-logo.png" alt="Posted Social">
+      </a>
+    </div>
+  </div>
+</body>
+</html>
