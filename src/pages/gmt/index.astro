@@ -31,7 +31,13 @@ const coaches = [
 
 <BaseLayout
   title="GMT | GiveMoreTraining."
+  description="Hockey-specific performance development. 500+ athletes trained. 8 years coaching."
   gaId="G-ZPJG30HQ26"
+  ogImageSrc="/images/gmt/profile.jpg"
+  accentColor="#dbcfbd"
+  accentDim="rgba(219,207,189,0.12)"
+  accentGlow="rgba(219,207,189,0.06)"
+  accentBorder="rgba(219,207,189,0.25)"
   footerLogoSrc="/images/gmt/footer-logo.png"
   footerText="GiveMoreTraining."
 >
@@ -82,12 +88,14 @@ const coaches = [
         price="$299"
         ctaHref="https://gmbm.com"
         ctaLabel="Get Early Access"
+        trackingLabel="gmt-program-elite-offseason"
       />
       <ProgramCard
         title="GMBM Online"
         description="Remote training programs with weekly check-ins, customized to your position and development goals."
         ctaHref="https://gmbm.com"
         ctaLabel="Learn More"
+        trackingLabel="gmt-program-gmbm-online"
       />
     </SectionBlock>
   </div>
@@ -98,7 +106,7 @@ const coaches = [
   <div class="animate delay-5">
     <div class="section-label">Explore</div>
     <div class="link-stack">
-      <LinkButton href="https://gmbm.com" label="GMBM — Give More Be More" />
+      <LinkButton href="https://gmbm.com" label="GMBM — Give More Be More" trackingLabel="gmt-link-gmbm" />
     </div>
   </div>
 
@@ -113,6 +121,7 @@ const coaches = [
           name={coach.name}
           handle={coach.handle}
           photoSrc={coach.photoSrc}
+          trackingLabel={`gmt-coach-${coach.handle}`}
         />
       ))}
     </div>

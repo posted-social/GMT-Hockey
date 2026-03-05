@@ -4,12 +4,18 @@ export interface Props {
   handle: string;
   photoSrc?: string;
   initials?: string;
+  trackingLabel?: string;
 }
 
-const { name, handle, photoSrc, initials } = Astro.props;
+const { name, handle, photoSrc, initials, trackingLabel } = Astro.props;
 ---
 
-<a href={`https://instagram.com/${handle}`} target="_blank" class="coach-card">
+<a
+  href={`https://instagram.com/${handle}`}
+  target="_blank"
+  class="coach-card"
+  {...trackingLabel ? { 'data-track': trackingLabel } : {}}
+>
   <div class="coach-avatar">
     {photoSrc ? (
       <img src={photoSrc} alt={name} class="coach-photo">
@@ -25,3 +31,14 @@ const { name, handle, photoSrc, initials } = Astro.props;
     @{handle}
   </div>
 </a>
+
+{trackingLabel && (
+  <script define:vars={{ trackingLabel }}>
+    document.querySelector(`[data-track="${trackingLabel}"]`)
+      ?.addEventListener('click', () => {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'click', { event_category: 'coach', event_label: trackingLabel });
+        }
+      });
+  </script>
+)}

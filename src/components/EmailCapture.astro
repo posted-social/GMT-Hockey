@@ -32,7 +32,7 @@ const {
         name="name"
         class="email-input"
         placeholder="Your name"
-        style="border-bottom: 1px solid rgba(219,207,189,0.1);"
+        style="border-bottom: 1px solid var(--accent-dim);"
         required
       >
     )}
@@ -68,6 +68,11 @@ const {
         body: JSON.stringify(payload),
       });
     } catch (_) {}
+
+    // GA4: track form submission
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'form_submit', { event_category: 'lead', event_label: source });
+    }
 
     form.style.display = 'none';
     const sublabel = document.getElementById(formId + '-sublabel');

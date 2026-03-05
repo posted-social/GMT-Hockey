@@ -1,15 +1,6 @@
 /* ── CSS VARIABLES ── */
-:root {
-  --accent: #dbcfbd;
-  --accent-dim: rgba(219, 207, 189, 0.12);
-  --accent-glow: rgba(219, 207, 189, 0.06);
-  --gray: #787979;
-  --black: #000000;
-  --white: #ffffff;
-  --dark-bg: #0a0a0a;
-  --card-bg: #141414;
-  --card-hover: #1a1a1a;
-}
+/* All --accent-* values are injected per-client by BaseLayout.
+   Do NOT define :root here — that would bleed across clients. */
 
 * {
   margin: 0;
@@ -31,8 +22,8 @@ body::before {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(var(--accent-rgb, 219,207,189), 0.04) 0%, transparent 60%),
-    radial-gradient(ellipse at 50% 100%, rgba(var(--accent-rgb, 219,207,189), 0.02) 0%, transparent 50%);
+    radial-gradient(ellipse at 50% 0%, var(--accent-glow) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 100%, var(--accent-glow) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
 }
@@ -57,12 +48,12 @@ body::before {
   border-radius: 50%;
   margin: 0 auto 20px;
   background: var(--black);
-  border: 2px solid rgba(219,207,189,0.25);
+  border: 2px solid var(--accent-border);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  box-shadow: 0 0 30px rgba(219,207,189,0.08);
+  box-shadow: 0 0 30px var(--accent-glow);
 }
 
 .profile-image img {
@@ -102,7 +93,7 @@ body::before {
   height: 40px;
   border-radius: 50%;
   background: var(--card-bg);
-  border: 1px solid rgba(219,207,189,0.12);
+  border: 1px solid var(--accent-dim);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -111,8 +102,8 @@ body::before {
 }
 
 .social-icon:hover {
-  background: rgba(219,207,189,0.1);
-  border-color: rgba(219,207,189,0.3);
+  background: var(--accent-dim);
+  border-color: var(--accent-border);
   transform: translateY(-2px);
 }
 
@@ -130,7 +121,7 @@ body::before {
 /* ── DIVIDER ── */
 .divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(219,207,189,0.15), transparent);
+  background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
   margin: 32px 0;
 }
 
@@ -162,12 +153,12 @@ body::before {
   gap: 0;
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid rgba(219,207,189,0.15);
+  border: 1px solid var(--accent-dim);
   transition: border-color 0.25s ease;
 }
 
 .email-form:focus-within {
-  border-color: rgba(219,207,189,0.4);
+  border-color: var(--accent-border);
 }
 
 .email-input {
@@ -229,7 +220,7 @@ body::before {
   justify-content: center;
   padding: 16px 20px;
   background: var(--card-bg);
-  border: 1px solid rgba(219,207,189,0.1);
+  border: 1px solid var(--accent-dim);
   border-radius: 8px;
   text-decoration: none;
   color: var(--white);
@@ -256,7 +247,7 @@ body::before {
 
 .link-btn:hover {
   background: var(--card-hover);
-  border-color: rgba(219,207,189,0.25);
+  border-color: var(--accent-border);
   transform: translateY(-1px);
 }
 
@@ -292,7 +283,7 @@ body::before {
 
 .coach-card {
   background: var(--card-bg);
-  border: 1px solid rgba(219,207,189,0.08);
+  border: 1px solid var(--accent-glow);
   border-radius: 8px;
   padding: 20px 12px;
   text-align: center;
@@ -317,7 +308,7 @@ body::before {
 
 .coach-card:hover {
   background: var(--card-hover);
-  border-color: rgba(219,207,189,0.2);
+  border-color: var(--accent-dim);
   transform: translateY(-2px);
 }
 
@@ -329,12 +320,12 @@ body::before {
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: rgba(219,207,189,0.08);
+  background: var(--accent-glow);
   margin: 0 auto 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(219,207,189,0.12);
+  border: 1px solid var(--accent-dim);
   overflow: hidden;
 }
 
@@ -377,7 +368,7 @@ body::before {
   text-align: center;
   margin-top: 40px;
   padding-top: 24px;
-  border-top: 1px solid rgba(219,207,189,0.06);
+  border-top: 1px solid var(--accent-glow);
 }
 
 .footer-logo {
@@ -457,7 +448,7 @@ body::before {
 
 .modal-content {
   background: var(--card-bg);
-  border: 1px solid rgba(219,207,189,0.15);
+  border: 1px solid var(--accent-dim);
   border-radius: 12px;
   padding: 36px 28px;
   max-width: 400px;
@@ -474,13 +465,13 @@ body::before {
 }
 
 .modal-content .email-input {
-  border: 1px solid rgba(219,207,189,0.15);
+  border: 1px solid var(--accent-dim);
   border-radius: 6px;
   margin-bottom: 0;
 }
 
 .modal-content .email-input:focus {
-  border-color: rgba(219,207,189,0.4);
+  border-color: var(--accent-border);
 }
 
 .modal-close {

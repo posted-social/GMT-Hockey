@@ -6,9 +6,10 @@ export interface Props {
   ctaLabel?: string;
   badge?: string;
   price?: string;
+  trackingLabel?: string;
 }
 
-const { title, description, ctaHref, ctaLabel = 'Learn More', badge, price } = Astro.props;
+const { title, description, ctaHref, ctaLabel = 'Learn More', badge, price, trackingLabel } = Astro.props;
 const isExternal = ctaHref.startsWith('http');
 ---
 
@@ -24,16 +25,28 @@ const isExternal = ctaHref.startsWith('http');
       href={ctaHref}
       class="program-cta"
       {...isExternal ? { target: '_blank' } : {}}
+      {...trackingLabel ? { 'data-track': trackingLabel } : {}}
     >
       {ctaLabel} →
     </a>
   </div>
 </div>
 
+{trackingLabel && (
+  <script define:vars={{ trackingLabel }}>
+    document.querySelector(`[data-track="${trackingLabel}"]`)
+      ?.addEventListener('click', () => {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'click', { event_category: 'program', event_label: trackingLabel });
+        }
+      });
+  </script>
+)}
+
 <style>
   .program-card {
     background: var(--card-bg);
-    border: 1px solid rgba(219,207,189,0.1);
+    border: 1px solid var(--accent-dim);
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 10px;
@@ -41,7 +54,7 @@ const isExternal = ctaHref.startsWith('http');
   }
 
   .program-card:hover {
-    border-color: rgba(219,207,189,0.25);
+    border-color: var(--accent-border);
     background: var(--card-hover);
   }
 
@@ -64,8 +77,8 @@ const isExternal = ctaHref.startsWith('http');
     letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--accent);
-    background: rgba(219,207,189,0.08);
-    border: 1px solid rgba(219,207,189,0.2);
+    background: var(--accent-glow);
+    border: 1px solid var(--accent-dim);
     border-radius: 4px;
     padding: 3px 8px;
     font-weight: 600;
