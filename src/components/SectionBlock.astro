@@ -1,0 +1,39 @@
+---
+export interface Props {
+  label?: string;
+  heading?: string;
+  body?: string;
+}
+
+const { label, heading, body } = Astro.props;
+---
+
+<div class="section-block">
+  {label && <div class="section-label">{label}</div>}
+  {heading && <div class="section-block-heading">{heading}</div>}
+  {body && <div class="section-block-body">{body}</div>}
+  <slot />
+</div>
+
+<style>
+  .section-block {
+    margin-bottom: 8px;
+  }
+
+  .section-block-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--white);
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .section-block-body {
+    font-size: 13px;
+    color: var(--gray);
+    text-align: center;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+</style>

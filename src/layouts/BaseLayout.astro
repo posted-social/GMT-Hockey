@@ -1,0 +1,114 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  gaId?: string;
+  // Colors — all optional, defaults are the GMT tan theme
+  accentColor?: string;
+  accentDim?: string;
+  accentGlow?: string;
+  accentBorder?: string;
+  darkBg?: string;
+  cardBg?: string;
+  cardHover?: string;
+  // Meta / OG
+  ogImageSrc?: string;
+  faviconSrc?: string;
+  // Footer
+  footerLogoSrc?: string;
+  footerText?: string;
+  postedSigLogoSrc?: string;
+}
+
+const {
+  title,
+  description = '',
+  gaId,
+  accentColor  = '#dbcfbd',
+  accentDim    = 'rgba(219,207,189,0.12)',
+  accentGlow   = 'rgba(219,207,189,0.06)',
+  accentBorder = 'rgba(219,207,189,0.25)',
+  darkBg       = '#0a0a0a',
+  cardBg       = '#141414',
+  cardHover    = '#1a1a1a',
+  ogImageSrc,
+  faviconSrc        = '/images/shared/posted-icon.png',
+  footerLogoSrc,
+  footerText,
+  postedSigLogoSrc  = '/images/shared/posted-icon.png',
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  {description && <meta name="description" content={description}>}
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href={faviconSrc}>
+
+  <!-- OG / Social meta -->
+  <meta property="og:title" content={title}>
+  {description && <meta property="og:description" content={description}>}
+  <meta property="og:type" content="website">
+  {ogImageSrc && <meta property="og:image" content={ogImageSrc}>}
+  <meta name="twitter:card" content={ogImageSrc ? 'summary_large_image' : 'summary'}>
+  <meta name="twitter:title" content={title}>
+  {ogImageSrc && <meta name="twitter:image" content={ogImageSrc}>}
+
+  <!-- GA4 -->
+  {gaId && (
+    <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+      <script define:vars={{ gaId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', gaId);
+      </script>
+    </>
+  )}
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Per-client CSS variables — only place colors are defined -->
+  <style define:vars={{ accentColor, accentDim, accentGlow, accentBorder, darkBg, cardBg, cardHover }}>
+    :root {
+      --accent:        var(--accentColor);
+      --accent-dim:    var(--accentDim);
+      --accent-glow:   var(--accentGlow);
+      --accent-border: var(--accentBorder);
+      --dark-bg:       var(--darkBg);
+      --card-bg:       var(--cardBg);
+      --card-hover:    var(--cardHover);
+      --gray:  #787979;
+      --black: #000000;
+      --white: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <slot />
+
+    <div class="footer animate delay-10">
+      {footerLogoSrc && (
+        <img src={footerLogoSrc} alt="" class="footer-logo">
+      )}
+      {footerText && (
+        <div class="footer-text">{footerText}</div>
+      )}
+      <a href="https://posted-social.com" target="_blank" class="posted-sig" style="text-decoration:none;">
+        <span class="posted-sig-text">We'll Keep You <span class="posted-highlight">Posted</span></span>
+        <img class="posted-sig-logo" src={postedSigLogoSrc} alt="Posted Social">
+      </a>
+    </div>
+  </div>
+</body>
+</html>

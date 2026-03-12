@@ -1,0 +1,82 @@
+---
+export interface Props {
+  formId: string;
+  webhookUrl: string;
+  source: string;
+  heading: string;
+  subheading?: string;
+  buttonText?: string;
+  successMessage?: string;
+  collectName?: boolean;
+}
+
+const {
+  formId,
+  webhookUrl,
+  source,
+  heading,
+  subheading,
+  buttonText = 'Get Access',
+  successMessage = "You're in. We'll be in touch.",
+  collectName = false,
+} = Astro.props;
+---
+
+<div class="cta-section">
+  <div class="cta-label">{heading}</div>
+  {subheading && <div class="cta-sublabel" id={`${formId}-sublabel`}>{subheading}</div>}
+  <form class="email-form" id={formId}>
+    {collectName && (
+      <input
+        type="text"
+        name="name"
+        class="email-input"
+        placeholder="Your name"
+        style="border-bottom: 1px solid var(--accent-dim);"
+        required
+      >
+    )}
+    <input type="email" name="email" class="email-input" placeholder="Enter your email" required>
+    <button type="submit" class="email-submit">{buttonText}</button>
+  </form>
+  <div
+    id={`${formId}-success`}
+    style="display:none; text-align:center; margin-top:12px; font-size:12px; color:var(--accent); letter-spacing:1px;"
+  >
+    {successMessage}
+  </div>
+</div>
+
+<script define:vars={{ formId, webhookUrl, source }}>
+  document.getElementById(formId).addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('button[type="submit"]');
+    const emailInput = form.querySelector('input[name="email"]');
+    const nameInput = form.querySelector('input[name="name"]');
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    const payload = { email: emailInput.value, source };
+    if (nameInput) payload.name = nameInput.value;
+
+    try {
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+    } catch (_) {}
+
+    // GA4: track form submission
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'form_submit', { event_category: 'lead', event_label: source });
+    }
+
+    form.style.display = 'none';
+    const sublabel = document.getElementById(formId + '-sublabel');
+    if (sublabel) sublabel.style.display = 'none';
+    document.getElementById(formId + '-success').style.display = 'block';
+  });
+</script>

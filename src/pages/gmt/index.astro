@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProfileHeader from '../../components/ProfileHeader.astro';
+import SocialIcons from '../../components/SocialIcons.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import LinkButton from '../../components/LinkButton.astro';
+import CoachCard from '../../components/CoachCard.astro';
+import NewsletterModal from '../../components/NewsletterModal.astro';
+import StatBar from '../../components/StatBar.astro';
+import TestimonialCard from '../../components/TestimonialCard.astro';
+import ProgramCard from '../../components/ProgramCard.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
+import '../../styles/global.css';
+
+const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/tI74ruwIYBkA3vjtdWDO/webhook-trigger/F7kfMM9FW89KL9DKU6si';
+
+const socials = [
+  { platform: 'instagram', url: 'https://instagram.com/givemoretraining' },
+  { platform: 'facebook',  url: 'https://facebook.com/givemoretraining' },
+  { platform: 'tiktok',    url: 'https://tiktok.com/@givemoretraining' },
+  { platform: 'youtube',   url: 'https://youtube.com/@givemoretraining' },
+] as const;
+
+const coaches = [
+  { name: 'Jeff LoVecchio', handle: 'jefflovecchio',       photoSrc: '/images/gmt/jeff-lovecchio.jpg' },
+  { name: 'Jackson Boyd',   handle: 'jacks_boyd',          photoSrc: '/images/gmt/jackson-boyd.jpg' },
+  { name: 'Jake Hanebrink', handle: 'coachjake.hanebrink', photoSrc: '/images/gmt/jake-hanebrink.jpg' },
+  { name: 'Jack Caruso',    handle: 'jackcaruso_',         photoSrc: '/images/gmt/jack-caruso.jpg' },
+  { name: 'Zach Levvy',    handle: 'zachlevy_77',         photoSrc: '/images/gmt/zach-levvy.jpg' },
+  { name: 'Michael Huntebrinker',    handle: 'mhunty17',         photoSrc: '/images/gmt/michael-huntebrinker.jpg' },
+  { name: 'Michael Schrader',    handle: 'mschrader17',         photoSrc: '/images/gmt/michael-schrader.jpg' },
+];
+---
+
+<BaseLayout
+  title="GMT | GiveMoreTraining."
+  description="Hockey-specific performance development. 500+ athletes trained. 8 years coaching."
+  gaId="G-ZPJG30HQ26"
+  ogImageSrc="/images/gmt/profile.jpg"
+  accentColor="#dbcfbd"
+  accentDim="rgba(219,207,189,0.12)"
+  accentGlow="rgba(219,207,189,0.06)"
+  accentBorder="rgba(219,207,189,0.25)"
+  footerLogoSrc="/images/gmt/footer-logo.png"
+  footerText="GiveMoreTraining."
+>
+  <!-- PROFILE -->
+  <ProfileHeader
+    imageSrc="/images/gmt/profile.jpg"
+    name="GiveMoreTraining."
+    tagline="Hockey-Specific Performance Development"
+  >
+    <SocialIcons socials={socials} />
+  </ProfileHeader>
+
+  <div class="divider animate delay-2"></div>
+
+  <!-- STATS -->
+  <div class="animate delay-3">
+    <StatBar stats={[
+      { value: '30,000+', label: 'Athletes Trained' },
+      { value: '20+',    label: 'Years Coaching' },
+      { value: '200+',    label: 'Pro Alumni' },
+    ]} />
+  </div>
+
+  <div class="divider animate delay-4"></div>
+
+  <!-- PRIMARY CTA: OFF-SEASON EMAIL CAPTURE -->
+  <div class="animate delay-3">
+    <EmailCapture
+      formId="offseason-form"
+      webhookUrl={WEBHOOK_URL}
+      source="off-season-program"
+      heading="2026 Off-Season Program"
+      subheading="Get early access and program details — launching March 22nd."
+      buttonText="Get Access"
+      successMessage="You're in. We'll be in touch."
+    />
+  </div>
+
+  <div class="divider animate delay-4"></div>
+
+  <!-- PROGRAMS -->
+  <div class="animate delay-5">
+    <SectionBlock label="Programs">
+      <ProgramCard
+        title="Elite Off-Season Program (14+)"
+        description="20 weeks of elite, hockey-specific strength and speed training — built by a former pro with 200+ professional clients — delivered to your phone with video coaching on every exercise and direct access to Jeff all summer."
+        badge="Open Soon!"
+        price="14 and older"
+        ctaHref="https://gmbm.com"
+        ctaLabel="Get Early Access"
+        trackingLabel="gmt-program-elite-offseason"
+      />
+      <ProgramCard
+        title="At-Home Off-Season Program (13-)"
+        description="20 weeks of age-appropriate, hockey-specific training designed for players 13 and under — built to be done at home with minimal equipment — so your kid can start building real off-ice strength before they're old enough for the elite program."
+        badge="Open Soon!"
+        price="13 and Younger"
+        ctaHref="https://gmbm.com"
+        ctaLabel="Get Early Access"
+        trackingLabel="gmt-program-elite-offseason"
+      />
+    </SectionBlock>
+  </div>
+
+  <div class="divider animate delay-6"></div>
+
+  <!-- MAIN LINKS -->
+  <div class="animate delay-5">
+    <div class="section-label">Explore</div>
+    <div class="link-stack">
+      <LinkButton href="https://gmbm.com" label="GMBM — Give More Be More" trackingLabel="gmt-link-gmbm" />
+    </div>
+  </div>
+
+  <div class="divider animate delay-6"></div>
+
+  <!-- COACHES -->
+  <div class="animate delay-7">
+    <div class="section-label">The Coaches</div>
+    <div class="coaches-grid">
+      {coaches.map((coach) => (
+        <CoachCard
+          name={coach.name}
+          handle={coach.handle}
+          photoSrc={coach.photoSrc}
+          trackingLabel={`gmt-coach-${coach.handle}`}
+        />
+      ))}
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TESTIMONIALS -->
+  <div class="animate delay-8">
+    <SectionBlock label="Hear From Our Athletes">
+      <TestimonialCard
+        quote="Jeff has had one of if not the most impactful influence on my life. I met him when I was 9 and have trained with him every off season since then. The way he pushes me to find a way to get better every day has helped shape me into the person I am today."
+        name="Jack Larrigan"
+        detail="AAA → USHL → NCAA D1"
+      />
+      <TestimonialCard
+        quote="Vechs has not only helped me become a better hockey player but a better person. Everyday he brings a positive attitude that lifts everyone up. He makes everyone around him want to be better at what they do. He has nothing but love for his clients and will help each guy in whatever way he can. He has taught me many lessons and helped me tremendously for the last 5 years. There is never a dull moment and It is a privilege to be trained by him."
+        name="Ben Doran"
+        detail="AAA → USHL → NCAA D1"
+      />
+    </SectionBlock>
+  </div>
+
+  <!-- NEWSLETTER SECONDARY CTA -->
+  <div class="animate delay-8">
+    <div class="divider"></div>
+    <NewsletterModal webhookUrl={WEBHOOK_URL} />
+  </div>
+</BaseLayout>

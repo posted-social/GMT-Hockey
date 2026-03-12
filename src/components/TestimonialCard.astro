@@ -1,0 +1,71 @@
+---
+export interface Props {
+  quote: string;
+  name: string;
+  detail?: string;
+  avatarSrc?: string;
+}
+
+const { quote, name, detail, avatarSrc } = Astro.props;
+---
+
+<div class="testimonial">
+  <div class="testimonial-quote">"{quote}"</div>
+  <div class="testimonial-attribution">
+    {avatarSrc && (
+      <img src={avatarSrc} alt={name} class="testimonial-avatar">
+    )}
+    <div>
+      <div class="testimonial-name">{name}</div>
+      {detail && <div class="testimonial-detail">{detail}</div>}
+    </div>
+  </div>
+</div>
+
+<style>
+  .testimonial {
+    background: var(--card-bg);
+    border: 1px solid rgba(219,207,189,0.08);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+  }
+
+  .testimonial-quote {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--white);
+    opacity: 0.85;
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+
+  .testimonial-attribution {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .testimonial-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(219,207,189,0.15);
+    flex-shrink: 0;
+  }
+
+  .testimonial-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.3px;
+  }
+
+  .testimonial-detail {
+    font-size: 11px;
+    color: var(--gray);
+    margin-top: 1px;
+  }
+</style>

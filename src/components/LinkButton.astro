@@ -1,0 +1,33 @@
+---
+export interface Props {
+  href: string;
+  label: string;
+  emoji?: string;
+  trackingLabel?: string;
+}
+
+const { href, label, emoji, trackingLabel } = Astro.props;
+const isExternal = href.startsWith('http');
+---
+
+<a
+  href={href}
+  class="link-btn"
+  {...isExternal ? { target: '_blank' } : {}}
+  {...trackingLabel ? { 'data-track': trackingLabel } : {}}
+>
+  {emoji && <span class="link-btn-icon">{emoji}</span>}
+  <span>{label}</span>
+  <span class="link-btn-arrow">→</span>
+</a>
+
+{trackingLabel && (
+  <script define:vars={{ trackingLabel }}>
+    document.querySelector(`[data-track="${trackingLabel}"]`)
+      ?.addEventListener('click', () => {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'click', { event_category: 'outbound', event_label: trackingLabel });
+        }
+      });
+  </script>
+)}
