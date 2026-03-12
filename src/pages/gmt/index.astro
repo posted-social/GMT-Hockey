@@ -26,6 +26,9 @@ const coaches = [
   { name: 'Jackson Boyd',   handle: 'jacks_boyd',          photoSrc: '/images/gmt/jackson-boyd.jpg' },
   { name: 'Jake Hanebrink', handle: 'coachjake.hanebrink', photoSrc: '/images/gmt/jake-hanebrink.jpg' },
   { name: 'Jack Caruso',    handle: 'jackcaruso_',         photoSrc: '/images/gmt/jack-caruso.jpg' },
+  { name: 'Zach Levvy',    handle: 'zachlevy_77',         photoSrc: '/images/gmt/zach-levvy.jpg' },
+  { name: 'Michael Huntebrinker',    handle: 'mhunty17',         photoSrc: '/images/gmt/michael-huntebrinker.jpg' },
+  { name: 'Michael Schrader',    handle: 'mschrader17',         photoSrc: '/images/gmt/michael-schrader.jpg' },
 ];
 ---
 
@@ -55,9 +58,9 @@ const coaches = [
   <!-- STATS -->
   <div class="animate delay-3">
     <StatBar stats={[
-      { value: '500+', label: 'Athletes Trained' },
-      { value: '8',    label: 'Years Coaching' },
-      { value: '4',    label: 'Pro Alumni' },
+      { value: '30,000+', label: 'Athletes Trained' },
+      { value: '20+',    label: 'Years Coaching' },
+      { value: '200+',    label: 'Pro Alumni' },
     ]} />
   </div>
 
@@ -82,20 +85,22 @@ const coaches = [
   <div class="animate delay-5">
     <SectionBlock label="Programs">
       <ProgramCard
-        title="Elite Off-Season"
-        description="12-week hockey-specific strength, speed, and skating development. Built for serious players looking to dominate next season."
-        badge="Now Enrolling"
-        price="$299"
+        title="Elite Off-Season Program (14+)"
+        description="20 weeks of elite, hockey-specific strength and speed training — built by a former pro with 200+ professional clients — delivered to your phone with video coaching on every exercise and direct access to Jeff all summer."
+        badge="Open Soon!"
+        price="14 and older"
         ctaHref="https://gmbm.com"
         ctaLabel="Get Early Access"
         trackingLabel="gmt-program-elite-offseason"
       />
       <ProgramCard
-        title="GMBM Online"
-        description="Remote training programs with weekly check-ins, customized to your position and development goals."
+        title="At-Home Off-Season Program (13-)"
+        description="20 weeks of age-appropriate, hockey-specific training designed for players 13 and under — built to be done at home with minimal equipment — so your kid can start building real off-ice strength before they're old enough for the elite program."
+        badge="Open Soon!"
+        price="13 and Younger"
         ctaHref="https://gmbm.com"
-        ctaLabel="Learn More"
-        trackingLabel="gmt-program-gmbm-online"
+        ctaLabel="Get Early Access"
+        trackingLabel="gmt-program-elite-offseason"
       />
     </SectionBlock>
   </div>
@@ -131,16 +136,16 @@ const coaches = [
 
   <!-- TESTIMONIALS -->
   <div class="animate delay-8">
-    <SectionBlock label="Athletes">
+    <SectionBlock label="Hear From Our Athletes">
       <TestimonialCard
-        quote="GMT completely changed how I train in the off-season. Went from a healthy scratch to top-6 forward in one summer."
-        name="Ryan M."
-        detail="AAA Midget → Junior A"
+        quote="Jeff has had one of if not the most impactful influence on my life. I met him when I was 9 and have trained with him every off season since then. The way he pushes me to find a way to get better every day has helped shape me into the person I am today."
+        name="Jack Larrigan"
+        detail="AAA → USHL → NCAA D1"
       />
       <TestimonialCard
-        quote="The detail these coaches put into every session is unreal. Best investment I've made in my hockey career."
-        name="Tyler B."
-        detail="NCAA Division I Commit"
+        quote="Vechs has not only helped me become a better hockey player but a better person. Everyday he brings a positive attitude that lifts everyone up. He makes everyone around him want to be better at what they do. He has nothing but love for his clients and will help each guy in whatever way he can. He has taught me many lessons and helped me tremendously for the last 5 years. There is never a dull moment and It is a privilege to be trained by him."
+        name="Ben Doran"
+        detail="AAA → USHL → NCAA D1"
       />
     </SectionBlock>
   </div>

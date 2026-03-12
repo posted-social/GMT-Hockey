@@ -1,6 +1,7 @@
 ---
 export interface Props {
   title: string;
+  subtitle?: string;
   description: string;
   ctaHref: string;
   ctaLabel?: string;
@@ -9,7 +10,7 @@ export interface Props {
   trackingLabel?: string;
 }
 
-const { title, description, ctaHref, ctaLabel = 'Learn More', badge, price, trackingLabel } = Astro.props;
+const { title, subtitle, description, ctaHref, ctaLabel = 'Learn More', badge, price, trackingLabel } = Astro.props;
 const isExternal = ctaHref.startsWith('http');
 ---
 

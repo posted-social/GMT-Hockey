@@ -19,15 +19,19 @@ const { webhookUrl } = Astro.props;
     <div class="cta-label" style="margin-bottom: 8px;">Weekly Newsletter</div>
     <div class="cta-sublabel" style="margin-bottom: 20px;">Training tips, mindset, and hockey performance — delivered weekly.</div>
     <form class="email-form" id="newsletter-form">
-      <input type="text" name="name" class="email-input" placeholder="Your name" style="border-bottom: 1px solid rgba(219,207,189,0.1);" required>
+      <input type="text" name="name" class="email-input" placeholder="Your name" style="border-bottom: 1px solid var(--accent-dim); margin-bottom: 10px;" required>
       <input type="email" name="email" class="email-input" placeholder="Enter your email" required>
-      <button type="submit" class="email-submit" style="width:100%; border-radius: 6px; margin-top: 4px;">Subscribe</button>
+      <button type="submit" class="email-submit" style="width:100%; border-radius: 6px; margin-top: 15px;">Subscribe</button>
     </form>
     <div id="newsletter-success" style="display:none; text-align:center; margin-top:12px; font-size:12px; color:var(--accent); letter-spacing:1px;">You're subscribed. Welcome to the team.</div>
   </div>
 </div>
 
 <script define:vars={{ webhookUrl }}>
+  // Move modal to <body> so it's not trapped inside .container's stacking context
+  const modalEl = document.getElementById('newsletter-modal');
+  if (modalEl) document.body.appendChild(modalEl);
+
   function openNewsletterModal() {
     document.getElementById('newsletter-modal').classList.add('active');
     document.body.style.overflow = 'hidden';
