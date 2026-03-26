@@ -5,13 +5,18 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@astrojs/cloudflare": "12",
     "astro": "^5.18.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.77.0"
   }
 }
