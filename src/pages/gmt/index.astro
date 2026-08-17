@@ -11,16 +11,13 @@ import TestimonialCard from '../../components/TestimonialCard.astro';
 import ProgramCard from '../../components/ProgramCard.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
 import '../../styles/global.css';
-
 const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/tI74ruwIYBkA3vjtdWDO/webhook-trigger/F7kfMM9FW89KL9DKU6si';
-
 const socials = [
   { platform: 'instagram', url: 'https://instagram.com/givemoretraining' },
   { platform: 'facebook',  url: 'https://facebook.com/givemoretraining' },
   { platform: 'tiktok',    url: 'https://tiktok.com/@givemoretraining' },
   { platform: 'youtube',   url: 'https://youtube.com/@givemoretraining' },
 ] as const;
-
 const coaches = [
   { name: 'Jeff LoVecchio', handle: 'jefflovecchio',       photoSrc: '/images/gmt/jeff-lovecchio.jpg' },
   { name: 'Jackson Boyd',   handle: 'jacks_boyd',          photoSrc: '/images/gmt/jackson-boyd.jpg' },
@@ -31,7 +28,6 @@ const coaches = [
   { name: 'Michael Schrader',    handle: 'mschrader17',         photoSrc: '/images/gmt/michael-schrader.jpg' },
 ];
 ---
-
 <BaseLayout
   title="GMT | GiveMoreTraining."
   description="Hockey-specific performance development. 500+ athletes trained. 8 years coaching."
@@ -52,9 +48,7 @@ const coaches = [
   >
     <SocialIcons socials={socials} />
   </ProfileHeader>
-
   <div class="divider animate delay-2"></div>
-
   <!-- STATS -->
   <div class="animate delay-3">
     <StatBar stats={[
@@ -63,9 +57,7 @@ const coaches = [
       { value: '200+',    label: 'Pro + D1 Alumni' },
     ]} />
   </div>
-
   <div class="divider animate delay-4"></div>
-
   <!-- PRIMARY CTA: NEWSLETTER -->
   <div class="animate delay-3">
     <EmailCapture
@@ -78,9 +70,7 @@ const coaches = [
       successMessage="You're subscribed. Welcome to the team."
     />
   </div>
-
   <div class="divider animate delay-4"></div>
-
   <!-- PROGRAMS -->
   <div class="animate delay-5">
     <SectionBlock label="Programs">
@@ -102,22 +92,18 @@ const coaches = [
       />
     </SectionBlock>
   </div>
-
   <div class="divider animate delay-6"></div>
-
   <!-- MAIN LINKS -->
-
 <!-- MAIN LINKS -->
 <div class="animate delay-5">
   <div class="section-label">Explore</div>
     <div class="link-stack">
+      <LinkButton href="https://gmtadvising.com/2026" label="GMA Registration" trackingLabel="gmt-link-gma-registration" />
       <LinkButton href="https://gmbm.com" label="GMBM — Give More Be More" trackingLabel="gmt-link-gmbm" />
     </div>
   </div>
 </div>
-
   <div class="divider animate delay-6"></div>
-
   <!-- COACHES -->
   <div class="animate delay-7">
     <div class="section-label">The Coaches</div>
@@ -132,9 +118,7 @@ const coaches = [
       ))}
     </div>
   </div>
-
   <div class="divider"></div>
-
   <!-- TESTIMONIALS -->
   <div class="animate delay-8">
     <SectionBlock label="Hear From Our Athletes">
@@ -150,7 +134,6 @@ const coaches = [
       />
     </SectionBlock>
   </div>
-
   <!-- NEWSLETTER SECONDARY CTA -->
   <div class="animate delay-8">
     <div class="divider"></div>
