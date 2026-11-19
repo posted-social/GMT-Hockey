@@ -222,6 +222,7 @@ body::before {
   background: var(--card-bg);
   border: 1px solid var(--accent-dim);
   border-radius: 8px;
+   text-align: center;
   text-decoration: none;
   color: var(--white);
   font-family: 'Inter', sans-serif;
